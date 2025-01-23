@@ -1,0 +1,28 @@
+[
+  {
+    "title": "",
+    "properties": [
+      {
+        "name": "scriptId",
+        "label": "@@BeanShellApi.scriptId@@",
+        "type": "textfield",
+        "required" : "true"
+      },
+      {
+        "name": "script",
+        "label": "@@BeanShellApi.script@@",
+        "type": "codeeditor",
+        "mode": "java",
+        "required" : "true"
+      },
+      {
+        "name": "label",
+        "label": "@@BeanShellApi.description@@",
+        "type": "textfield"
+      }
+    ]
+  }
+]
+
+
+

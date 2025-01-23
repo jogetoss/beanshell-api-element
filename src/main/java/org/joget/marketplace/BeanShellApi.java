@@ -75,31 +75,59 @@ public class BeanShellApi extends ApiPluginAbstract {
     @Operation(
             path = "/",
             type = Operation.MethodType.GET,
-            summary = "@@org.joget.beanshellapi.summary@@",
+            summary = "@@org.joget.beanshellapi.get.summary@@",
             description = "@@org.joget.beanshellapi.desc@@"
     )
     @Responses({
-            @Response(responseCode = 200, description = "@@org.joget.beanshellapi.resp.200@@", definition = "Milestone"),
+            @Response(responseCode = 200, description = "@@org.joget.beanshellapi.resp.200@@", definition = "Result"),
             @Response(responseCode = 404, description = "@@org.joget.beanshellapi.resp.404@@", definition = "ApiResponse")
     })
-    public ApiResponse runBeanShell(
-            HttpServletRequest request,
-            HttpServletResponse response) {
+    public ApiResponse get(HttpServletRequest request, HttpServletResponse response) {
+        return runBeanshell(request, response);
+    }
 
+    @Operation(
+            path = "/",
+            type = Operation.MethodType.POST,
+            summary = "@@org.joget.beanshellapi.post.summary@@",
+            description = "@@org.joget.beanshellapi.desc@@"
+    )
+    @Responses({
+            @Response(responseCode = 200, description = "@@org.joget.beanshellapi.resp.200@@", definition = "Result"),
+            @Response(responseCode = 404, description = "@@org.joget.beanshellapi.resp.404@@", definition = "ApiResponse")
+    })
+    public ApiResponse post(HttpServletRequest request, HttpServletResponse response) {
+        return runBeanshell(request, response);
+    }
+
+    private ApiResponse runBeanshell(HttpServletRequest request, HttpServletResponse response){
         String scriptId = getPropertyString("scriptId");
         String script = getPropertyString("script");
-
         Map properties = new HashMap();
         properties.put("request", request);
 
+        JSONObject results = (JSONObject) AppPluginUtil.executeScript(script, properties);
 
-        JSONObject ret = (JSONObject) AppPluginUtil.executeScript(script, properties);
+        if (results != null) {
+            // When response code is not provided, will default to 200
+            int code = results.has("code") && !results.isNull("code") ? results.getInt("code") : 200;
 
-        if(ret != null){
-            return new ApiResponse(200, ret);
-        } else {
-            return new ApiResponse(404, AppPluginUtil.getMessage("org.joget.beanshellapi.resp.404", getClassName(), getResourceBundlePath()));
+            // When response message is not provided, will use default error message
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+            if (code >= 400 && code <= 599) {
+                String message = results.has("message") && !results.isNull("message")
+                    ? results.getString("message")
+                    : AppPluginUtil.getMessage("org.joget.beanshellapi.resp.404", getClassName(), getResourceBundlePath());
+                
+                return new ApiResponse(code, message);
+            }
+
+            if (results.has("data") && !results.isNull("data")) {
+                return new ApiResponse(code, results.getJSONObject("data"));
+            }
         }
+        
+        return new ApiResponse(404, AppPluginUtil.getMessage("org.joget.beanshellapi.resp.404", getClassName(), getResourceBundlePath()));
     }
 
     protected String[] getFields() {

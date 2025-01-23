@@ -79,7 +79,7 @@ public class BeanShellApi extends ApiPluginAbstract {
             description = "@@org.joget.beanshellapi.desc@@"
     )
     @Responses({
-            @Response(responseCode = 200, description = "@@org.joget.beanshellapi.resp.200@@", definition = "Milestone"),
+            @Response(responseCode = 200, description = "@@org.joget.beanshellapi.resp.200@@", definition = "Result"),
             @Response(responseCode = 404, description = "@@org.joget.beanshellapi.resp.404@@", definition = "ApiResponse")
     })
     public ApiResponse get(HttpServletRequest request, HttpServletResponse response) {
@@ -93,7 +93,7 @@ public class BeanShellApi extends ApiPluginAbstract {
             description = "@@org.joget.beanshellapi.desc@@"
     )
     @Responses({
-            @Response(responseCode = 200, description = "@@org.joget.beanshellapi.resp.200@@", definition = "Milestone"),
+            @Response(responseCode = 200, description = "@@org.joget.beanshellapi.resp.200@@", definition = "Result"),
             @Response(responseCode = 404, description = "@@org.joget.beanshellapi.resp.404@@", definition = "ApiResponse")
     })
     public ApiResponse post(HttpServletRequest request, HttpServletResponse response) {

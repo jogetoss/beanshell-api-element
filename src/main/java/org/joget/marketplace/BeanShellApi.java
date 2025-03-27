@@ -10,6 +10,7 @@ import org.joget.api.model.ApiResponse;
 import org.joget.apps.app.model.AppDefinition;
 import org.joget.apps.app.service.AppPluginUtil;
 import org.joget.apps.app.service.AppUtil;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -123,7 +124,13 @@ public class BeanShellApi extends ApiPluginAbstract {
             }
 
             if (results.has("data") && !results.isNull("data")) {
-                return new ApiResponse(code, results.getJSONObject("data"));
+                Object data = results.get("data");
+
+                if (data instanceof JSONObject) {
+                    return new ApiResponse(code, results.getJSONObject("data"));
+                } else if (data instanceof JSONArray) {
+                    return new ApiResponse(code, results.getJSONArray("data"));
+                }
             }
         }
         

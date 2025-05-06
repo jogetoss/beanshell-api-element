@@ -1,6 +1,6 @@
 # Description
 
-This repository is meant to serve as a general template for how to set up new repositories in the JogetOSS organization. 
+The Bean Shell API Element allows you to create arbirtary endpoints in API Builder that execute Bean Shell scripts.
 
 # Getting Help
 

@@ -1,6 +1,6 @@
 # Description
 
-The Bean Shell API Element allows you to create arbirtary endpoints in API Builder that execute Bean Shell scripts.
+The Bean Shell API Element allows you to create arbirtary endpoints in API Builder that execute Bean Shell scripts. Please see [documentation](https://kb.joget.org/jw/web/userview/jdocs/docs/marketplace/beanshell-api).
 
 # Getting Help
 

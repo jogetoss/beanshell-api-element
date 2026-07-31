@@ -30,7 +30,7 @@ public class BeanShellApi extends ApiPluginAbstract {
 
     @Override
     public String getVersion() {
-        return "8.0.0";
+        return "8.0.1";
     }
 
     @Override
@@ -71,6 +71,11 @@ public class BeanShellApi extends ApiPluginAbstract {
     @Override
     public String getResourceBundlePath() {
         return MESSAGE_PATH;
+    }
+
+    @Override
+    public boolean usingSimpleConfig() {
+        return false;
     }
 
     @Operation(

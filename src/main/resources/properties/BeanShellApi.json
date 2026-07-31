@@ -1,6 +1,6 @@
 [
   {
-    "title": "",
+    "title": "@@BeanShellApi.title@@",
     "properties": [
       {
         "name": "scriptId",
